@@ -6,7 +6,8 @@
      kita dengan GraphQL.
 */
 const express = require('express')
-const expressGraphQL = require('express-graphql')
+const expressGraphQL = require('express-graphql').graphqlHTTP
+const schema = require('./schema')
 
 // Buat fungsi express yang didapat dari import diatas menjadi sebuah variable bernama app.
 const app = express()
@@ -15,11 +16,10 @@ const PORT = 4000
 
 // Satu fungsi express yang akan memanggil fungsi dari GraphQL. Disinilah mereka terkoneksi.
 app.use('/graphql', expressGraphQL({
-  // Bagaimana jika ini kita `false`? Ini adalah satu perintah agar kita bisa menggunakan
-  // User Interface dari konsep GraphQL dan akan menampilkannya di browser. Jadi dengan graphiql
-  // ini akan membantu kamu melihat hasil dari data buatan GraphQL itu sendiri.
+  schema,
   graphiql: true
 }))
+
 
 // Setup server nya agar bisa dijalankan di port yang local di komputer kita.
 app.listen(PORT, () => {
