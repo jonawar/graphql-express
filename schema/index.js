@@ -18,7 +18,7 @@ const UserType = new GraphQLObjectType({
       lastName: { type: GraphQLString },
     }
  })
- 
+
 const RootQuery = new GraphQLObjectType({
     name: 'RootQueryType',
     fields: {
@@ -32,3 +32,7 @@ const RootQuery = new GraphQLObjectType({
       }
     } 
  })
+
+ module.exports = new GraphQLSchema({
+    query: RootQuery
+})
