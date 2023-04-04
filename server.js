@@ -6,8 +6,9 @@
      kita dengan GraphQL.
 */
 const express = require('express')
-const expressGraphQL = require('express-graphql').graphqlHTTP
-const schema = require('./schema')
+const { graphqlHTTP } = require('express-graphql')
+const graphqlSchema = require('./graphql/schema')
+const graphqlResolver = require('./graphql/resolvers')
 
 // Buat fungsi express yang didapat dari import diatas menjadi sebuah variable bernama app.
 const app = express()
@@ -15,9 +16,9 @@ const app = express()
 const PORT = 4000
 
 // Satu fungsi express yang akan memanggil fungsi dari GraphQL. Disinilah mereka terkoneksi.
-app.use('/graphql', expressGraphQL({
-  schema,
-  graphiql: true
+app.use('/graphql', graphqlHTTP ({
+  schema: graphqlSchema,
+  rootValue: graphqlResolver,
 }))
 
 
